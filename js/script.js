@@ -43,5 +43,45 @@ nextButton.addEventListener('click', () => {
     currentSlide = (currentSlide + 1) % slides.length;
     updateSlider();
 });
-
 updateSlider();
+
+//Timer
+const endTime = `2025-05-20`
+const days_item = document.querySelector(`#days`)
+const hours_item = document.querySelector(`#hours`)
+const minutes_item = document.querySelector(`#minutes`)
+const seconds_item = document.querySelector(`#seconds`)
+
+const remainTime = (remain) => {
+    const currentTime = new Date()
+    const total = Date.parse(remain) - Date.parse(currentTime)
+    if (total <= 0) {
+        return {days: 0, hours: 0, minutes: 0, seconds: 0}
+    }
+    const days = Math.floor(total / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((total / (1000 * 60)) % 60);
+    const seconds = Math.floor((total / 1000) % 60);
+    return {days , hours, minutes, seconds}
+}
+
+const format = (time) => {
+    return time < 10 ? `0${time}` : time
+}
+
+const update = () => {
+    const time = remainTime(endTime)
+
+    days_item.textContent = format(time.days)
+    hours_item.textContent = format(time.hours)
+    minutes_item.textContent = format(time.minutes)
+    seconds_item.textContent = format(time.seconds)
+
+    if(time.days === 0 && time.hours === 0 && time.minutes === 0 && time.seconds === 0) {
+        clearInterval(interval)
+    }
+}
+
+const interval = setInterval(update, 1000)
+
+update()
