@@ -728,6 +728,12 @@ a {
     animation-duration: 1.5s;
 }
 
+.menu__item:hover {
+    transform: scale(1.1);
+    transition: 0.6s;
+    cursor: pointer;
+}
+
 @keyframes fade {
     from {
         opacity: 0.1;
